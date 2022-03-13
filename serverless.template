@@ -1,0 +1,77 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Transform": "AWS::Serverless-2016-10-31",
+  "Description": "An AWS Serverless Application.",
+  "Resources": {
+    "Get": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "MultipleEndpoint::MultipleEndpoint.Functions::Get",
+        "Runtime": "dotnet6",
+        "CodeUri": "",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "Events": {
+          "RootGet": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/makeorder",
+              "Method": "GET"
+            }
+          },
+          "RootGet2": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/createorder",
+              "Method": "GET"
+            }
+          },
+          "RootGet3": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/vieworder",
+              "Method": "GET"
+            }
+          },
+          "RootGet4": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/cancelorder",
+              "Method": "GET"
+            }
+          }
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "makeorder": {
+      "Description": "API endpoint URL for Prod environment makeorder",
+      "Value": {
+        "Fn::Sub": "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/makeorder"
+      }
+    }
+    "createorder": {
+      "Description": "API endpoint URL for Prod environment createorder",
+      "Value": {
+        "Fn::Sub": "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/createorder"
+      }
+    }
+    "cancelorder": {
+      "Description": "API endpoint URL for Prod environment cancelorder",
+      "Value": {
+        "Fn::Sub": "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/cancelorder"
+      }
+    }
+    "vieworder": {
+      "Description": "API endpoint URL for Prod environment vieworder",
+      "Value": {
+        "Fn::Sub": "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/vieworder"
+      }
+    }
+  }
+}
